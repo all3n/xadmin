@@ -1,0 +1,5 @@
+#!/bin/bash
+bin=`dirname "$0"`
+export APP_HOME=`cd "$bin/"; pwd`
+. $APP_HOME/bin/conf.sh
+run_action $@

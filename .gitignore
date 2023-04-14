@@ -1,0 +1,9 @@
+dev.env.sh
+/logs
+/run.pid
+/tmp
+/.idea
+*.iml
+application.pid
+.idea
+target

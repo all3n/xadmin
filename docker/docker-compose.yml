@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: xadmin-svc-mysql
+    command:  mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "23306:3306"
+    volumes:
+      - xadmin_mysql_vol:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql/sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: xadmin123 
+      MYSQL_DATABASE: xadmin
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    restart: always
+  redis:
+    image: redis
+    container_name: xadmin-svc-redis
+    ports:
+      - "26379:6379"
+    command:
+      --requirepass "xadmin_redis"
+    restart: always
+volumes:
+    xadmin_mysql_vol: {}
