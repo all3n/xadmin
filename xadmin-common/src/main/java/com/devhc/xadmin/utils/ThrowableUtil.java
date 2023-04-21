@@ -17,11 +17,6 @@ package com.devhc.xadmin.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
-/**
- * 异常工具 2019-01-06
- * 
- */
 public class ThrowableUtil {
 
     /**

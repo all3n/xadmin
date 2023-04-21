@@ -16,11 +16,11 @@
 package com.devhc.xadmin.modules.system.service.impl;
 
 import com.devhc.xadmin.modules.system.service.mapstruct.JobMapper;
-import com.devhc.xadmin.utils.CacheKey;
+import com.devhc.xadmin.config.CacheKey;
 import com.devhc.xadmin.utils.FileUtil;
 import com.devhc.xadmin.utils.PageUtil;
 import com.devhc.xadmin.utils.QueryHelp;
-import com.devhc.xadmin.utils.RedisUtils;
+import com.devhc.xadmin.redis.RedisUtils;
 import com.devhc.xadmin.utils.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import com.devhc.xadmin.exception.BadRequestException;

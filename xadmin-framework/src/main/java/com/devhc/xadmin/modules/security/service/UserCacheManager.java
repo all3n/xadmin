@@ -16,7 +16,7 @@
 package com.devhc.xadmin.modules.security.service;
 
 import cn.hutool.core.util.RandomUtil;
-import com.devhc.xadmin.utils.RedisUtils;
+import com.devhc.xadmin.redis.RedisUtils;
 import com.devhc.xadmin.utils.StringUtils;
 import com.devhc.xadmin.modules.security.config.bean.LoginProperties;
 import com.devhc.xadmin.modules.security.service.dto.JwtUserDto;

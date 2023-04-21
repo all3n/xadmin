@@ -29,7 +29,10 @@ spring:
 
   application:
     name: xadmin
-
+    #cache:
+    #  type: jcache
+    #  jcache:
+    #    config: classpath:ehcache.xml
 task:
   pool:
     core-pool-size: 10

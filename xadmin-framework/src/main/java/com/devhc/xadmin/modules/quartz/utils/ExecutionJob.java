@@ -26,7 +26,7 @@ import com.devhc.xadmin.modules.quartz.service.QuartzJobService;
 import com.devhc.xadmin.config.thread.ThreadPoolExecutorUtil;
 import com.devhc.xadmin.modules.system.domain.vo.EmailVo;
 import com.devhc.xadmin.modules.system.service.EmailService;
-import com.devhc.xadmin.utils.RedisUtils;
+import com.devhc.xadmin.redis.RedisUtils;
 import com.devhc.xadmin.utils.SpringContextHolder;
 import com.devhc.xadmin.utils.StringUtils;
 import com.devhc.xadmin.utils.ThrowableUtil;

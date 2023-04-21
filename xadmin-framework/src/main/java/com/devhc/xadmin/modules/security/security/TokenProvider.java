@@ -18,7 +18,7 @@ package com.devhc.xadmin.modules.security.security;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import com.devhc.xadmin.utils.RedisUtils;
+import com.devhc.xadmin.redis.RedisUtils;
 import com.devhc.xadmin.modules.security.config.bean.SecurityProperties;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

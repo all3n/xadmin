@@ -26,7 +26,7 @@ import com.devhc.xadmin.modules.quartz.service.dto.JobQueryCriteria;
 import com.devhc.xadmin.utils.FileUtil;
 import com.devhc.xadmin.utils.PageUtil;
 import com.devhc.xadmin.utils.QueryHelp;
-import com.devhc.xadmin.utils.RedisUtils;
+import com.devhc.xadmin.redis.RedisUtils;
 import com.devhc.xadmin.utils.StringUtils;
 import com.devhc.xadmin.utils.ValidationUtil;
 import lombok.RequiredArgsConstructor;

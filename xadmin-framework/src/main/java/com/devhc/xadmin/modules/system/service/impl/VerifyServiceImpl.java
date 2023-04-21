@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 import com.devhc.xadmin.modules.system.domain.vo.EmailVo;
 import com.devhc.xadmin.exception.BadRequestException;
 import com.devhc.xadmin.modules.system.service.VerifyService;
-import com.devhc.xadmin.utils.RedisUtils;
+import com.devhc.xadmin.redis.RedisUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

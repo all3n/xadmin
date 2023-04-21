@@ -6,8 +6,8 @@
   "license": "Apache-2.0",
   "scripts": {
     "dev": "env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
-    "build:prod": "vue-cli-service build",
-    "build:stage": "vue-cli-service build --mode staging",
+    "build:prod": "env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
+    "build:stage": "env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
     "lint": "eslint --ext .js,.vue src",
     "test:unit": "jest --clearCache && vue-cli-service test:unit",

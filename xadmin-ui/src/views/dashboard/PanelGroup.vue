@@ -1,26 +1,19 @@
 <template>
   <div>
-    <h3>{{title}}</h3>
-
+    <h3>{{ title }}</h3>
   </div>
 </template>
 
 <script>
-import dashboardApi from '@/api/dashboard'
-
 import Config from '@/settings'
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
       title: Config.title
     }
   },
-  mounted() {
-    var that = this
-
-  },
+  mounted() {},
   methods: {}
 }
 </script>
@@ -41,8 +34,8 @@ export default {
     overflow: hidden;
     color: #666;
     background: #fff;
-    box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-    border-color: rgba(0, 0, 0, .05);
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.05);
 
     &:hover {
       .card-panel-icon-wrapper {
@@ -62,7 +55,7 @@ export default {
       }
 
       .icon-shopping {
-        background: #34bfa3
+        background: #34bfa3;
       }
     }
 
@@ -79,7 +72,7 @@ export default {
     }
 
     .icon-shopping {
-      color: #34bfa3
+      color: #34bfa3;
     }
 
     .card-panel-icon-wrapper {

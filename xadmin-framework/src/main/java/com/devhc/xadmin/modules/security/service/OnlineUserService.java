@@ -21,7 +21,7 @@ import com.devhc.xadmin.modules.security.service.dto.OnlineUserDto;
 import com.devhc.xadmin.utils.EncryptUtils;
 import com.devhc.xadmin.utils.FileUtil;
 import com.devhc.xadmin.utils.PageUtil;
-import com.devhc.xadmin.utils.RedisUtils;
+import com.devhc.xadmin.redis.RedisUtils;
 import com.devhc.xadmin.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
