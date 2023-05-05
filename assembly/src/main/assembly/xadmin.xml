@@ -1,0 +1,30 @@
+<assembly>
+  <id>deploy</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <dependencySets>
+    <dependencySet>
+      <useProjectArtifact>true</useProjectArtifact>
+      <includes>
+        <include>com.devhc:xadmin-framework</include>
+      </includes>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+    <fileSet>
+      <outputDirectory>conf</outputDirectory>
+      <directory>${project.parent.basedir}/conf</directory>
+    </fileSet>
+    <fileSet>
+      <outputDirectory>bin</outputDirectory>
+      <fileMode>0755</fileMode>
+      <directory>${project.parent.basedir}/bin</directory>
+    </fileSet>
+    <fileSet>
+      <outputDirectory>/lib</outputDirectory>
+      <directory>${project.parent.basedir}/xadmin-framework/target/lib</directory>
+    </fileSet>
+   </fileSets>
+</assembly>
