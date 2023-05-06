@@ -11,7 +11,7 @@
     </appender>
     <springProfile name="dev">
         <logger name="jdbc.sqlonly" level="INFO" />
-        <logger name="jdbc.resultsettable" level="INFO" />
+        <logger name="jdbc.resultsettable" level="ERROR" />
     </springProfile>
     <springProfile name="prod">
         <logger name="jdbc.sqlonly" level="ERROR" />

@@ -27,6 +27,15 @@
           <el-option label="正常" value="0" />
           <el-option label="禁用" value="1" />
         </el-select>
+        <label class="el-form-item-label">地址</label>
+        <el-input
+          v-model="query.meta"
+          clearable
+          placeholder="meta json"
+          style="width: 185px;"
+          class="filter-item"
+          @keyup.enter.native="crud.toQuery"
+        />
         <rrOperation :crud="crud" />
       </div>
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
@@ -66,6 +75,9 @@
           <el-form-item label="地址" prop="host">
             <el-input v-model="form.host" placeholder="域名或者ip" style="width: 370px;" />
           </el-form-item>
+          <el-form-item label="meta" prop="meta">
+            <el-input v-model="form.meta" type="textarea" placeholder="meta json(max 255)" style="width: 370px;" />
+          </el-form-item>
           <el-form-item label="状态" prop="status">
             <el-switch
               v-model="form.status"
@@ -94,12 +106,12 @@
       >
         <el-table-column type="selection" width="55" />
         <el-table-column prop="serverId" label="服务器id" width="100" sortable />
-        <el-table-column prop="host" label="地址">
+        <el-table-column prop="host" label="地址" width="400">
           <template v-slot="scope">
             {{ scope.row.host }}
           </template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column prop="status" label="状态" width="100" sortable>
           <template v-slot="scope">
             <el-tag
               :type="scope.row.status === 0 ? 'success' : 'danger'"
@@ -107,6 +119,7 @@
             >{{ scope.row.status === 0 ? '正常' : '禁止' }}</el-tag>
           </template>
         </el-table-column>
+        <el-table-column prop="meta" label="meta" />
         <el-table-column
           v-if="checkPer(['admin','server:edit','server:del'])"
           label="操作"
@@ -135,7 +148,7 @@ import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
 
-const defaultForm = { serverId: null, host: null, status: 0 }
+const defaultForm = { serverId: null, host: null, status: 0, meta: null }
 export default {
   name: 'Server',
   components: { pagination, crudOperation, rrOperation, udOperation },
@@ -151,6 +164,18 @@ export default {
     })
   },
   data() {
+    var validateMeta = (rule, value, callback) => {
+      try {
+        if (value) {
+          JSON.parse(value)
+          callback()
+        } else {
+          callback()
+        }
+      } catch (e) {
+        callback(new Error(e))
+      }
+    }
     return {
       batchAddForm: {
         servers: ''
@@ -167,6 +192,9 @@ export default {
         ],
         status: [
           { required: true, message: 'status 0 ok 1 disable不能为空', trigger: 'blur' }
+        ],
+        meta: [
+          { validator: validateMeta, trigger: 'blur' }
         ]
       },
       queryTypeOptions: [

@@ -15,8 +15,8 @@
  */
 package com.devhc.xadmin.modules.system.service.dto;
 
+import com.devhc.xadmin.annotation.XQuery;
 import lombok.Data;
-import com.devhc.xadmin.annotation.Query;
 
 /**
  * 
@@ -25,6 +25,6 @@ import com.devhc.xadmin.annotation.Query;
 @Data
 public class DictQueryCriteria {
 
-    @Query(blurry = "name,description")
+    @XQuery(blurry = "name,description")
     private String blurry;
 }

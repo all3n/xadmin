@@ -30,6 +30,7 @@ import com.devhc.xadmin.utils.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
@@ -112,8 +113,10 @@ public class ServerServiceImpl implements ServerService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (ServerDto server : all) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("host or ip", server.getHost());
-            map.put("status 0 ok 1 disable", server.getStatus());
+            map.put("ID", server.getServerId());
+            map.put("host", server.getHost());
+            map.put("status", server.getStatus());
+            map.put("meta", server.getMeta());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

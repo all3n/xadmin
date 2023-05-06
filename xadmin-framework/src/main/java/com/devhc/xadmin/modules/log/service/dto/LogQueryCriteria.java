@@ -15,7 +15,7 @@
  */
 package com.devhc.xadmin.modules.log.service.dto;
 
-import com.devhc.xadmin.annotation.Query;
+import com.devhc.xadmin.annotation.XQuery;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -29,15 +29,15 @@ import java.util.List;
 @Data
 public class LogQueryCriteria {
 
-    @Query(blurry = "username,description,address,requestIp,method,params")
+    @XQuery(blurry = "username,description,address,requestIp,method,params")
     private String blurry;
 
-    @Query
+    @XQuery
     private String username;
 
-    @Query
+    @XQuery
     private String logType;
 
-    @Query(type = Query.Type.BETWEEN)
+    @XQuery(type = XQuery.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

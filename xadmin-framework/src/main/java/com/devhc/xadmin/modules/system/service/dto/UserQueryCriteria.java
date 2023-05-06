@@ -15,8 +15,9 @@
  */
 package com.devhc.xadmin.modules.system.service.dto;
 
+import com.devhc.xadmin.annotation.XQuery;
 import lombok.Data;
-import com.devhc.xadmin.annotation.Query;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -30,20 +31,20 @@ import java.util.Set;
 @Data
 public class UserQueryCriteria implements Serializable {
 
-    @Query
+    @XQuery
     private Long id;
 
-    @Query(propName = "id", type = Query.Type.IN, joinName = "dept")
+    @XQuery(propName = "id", type = XQuery.Type.IN, joinName = "dept")
     private Set<Long> deptIds = new HashSet<>();
 
-    @Query(blurry = "email,username,nickName")
+    @XQuery(blurry = "email,username,nickName")
     private String blurry;
 
-    @Query
+    @XQuery
     private Boolean enabled;
 
     private Long deptId;
 
-    @Query(type = Query.Type.BETWEEN)
+    @XQuery(type = XQuery.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

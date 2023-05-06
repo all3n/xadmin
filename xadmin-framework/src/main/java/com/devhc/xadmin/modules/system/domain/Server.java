@@ -49,6 +49,10 @@ public class Server implements Serializable {
     @Schema(title ="status 0 ok 1 disable")
     private Integer status;
 
+    @Column(name = "`meta`")
+    @Schema(title ="meta json")
+    private String meta;
+
     public void copy(Server source) {
         BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }

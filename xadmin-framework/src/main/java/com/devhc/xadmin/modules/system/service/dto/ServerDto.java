@@ -38,4 +38,8 @@ public class ServerDto implements Serializable {
      */
     private Integer status;
 
+    /**
+     * meta json
+     */
+    private String meta;
 }

@@ -13,7 +13,7 @@
  */
 package com.devhc.xadmin.modules.system.service.dto;
 
-import com.devhc.xadmin.annotation.Query;
+import com.devhc.xadmin.annotation.XQuery;
 import lombok.Data;
 
 /**
@@ -25,18 +25,21 @@ public class ServerQueryCriteria {
     /**
      * 精确
      */
-    @Query
+    @XQuery
     private Long serverId;
 
     /**
      * 模糊
      */
-    @Query(type = Query.Type.INNER_LIKE)
+    @XQuery(type = XQuery.Type.INNER_LIKE)
     private String host;
 
     /**
      * 精确
      */
-    @Query
+    @XQuery
     private Integer status;
+
+    @XQuery(type = XQuery.Type.INNER_LIKE)
+    private String meta;
 }

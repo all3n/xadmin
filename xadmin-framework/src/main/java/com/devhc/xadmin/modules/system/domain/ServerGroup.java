@@ -54,7 +54,7 @@ public class ServerGroup implements Serializable {
     private Integer status;
 
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "server_group_config",
         joinColumns = {@JoinColumn(name = "group_id",referencedColumnName = "group_id")},
         inverseJoinColumns = {@JoinColumn(name = "server_id",referencedColumnName = "server_id")})

@@ -30,7 +30,7 @@
         <yauaa.version>6.11</yauaa.version>
         <knife4j.version>4.1.0</knife4j.version>
         <springdoc.version>1.6.15</springdoc.version>
-        <poi.version>5.2.0</poi.version>
+        <poi.version>5.2.3</poi.version>
         <oshi.version>6.4.2</oshi.version>
         <!-- oshi need https://github.com/oshi/oshi/blob/master/pom.xml#L96 -->
         <jna.version>5.13.0</jna.version>

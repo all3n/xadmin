@@ -84,6 +84,7 @@
             >{{ scope.row.status === 0 ? '正常' : '禁止' }}</el-tag>
           </template>
         </el-table-column>
+        <el-table-column prop="count" label="server count" width="100" />
         <el-table-column v-if="checkPer(['admin','serverGroup:edit','serverGroup:del'])" label="操作" width="150px" align="center">
           <template v-slot="scope">
             <udOperation
@@ -156,7 +157,7 @@ export default {
       for (var i = 0; i < res.length; ++i) {
         that.servers_data.push({
           key: content[i].serverId,
-          label: content[i].host,
+          label: content[i].meta ? content[i].host + ' ' + content[i].meta : content[i].host,
           disabled: content[i].status === 1
         })
       }
@@ -187,9 +188,13 @@ export default {
         groupId = data.groupId
       }
       if (this.activeName === 'groupConfig') {
-        crudServerGroup.updateGroup({ 'ids': this.groups_servers, 'groupId': groupId })
+        crudServerGroup.updateGroup({ 'ids': this.groups_servers, 'groupId': groupId }).then(function(res) {
+          crud.toQuery()
+        })
       } else {
-        crudServerGroup.updateGroupText({ 'hosts': this.groupTexts, 'groupId': groupId })
+        crudServerGroup.updateGroupText({ 'hosts': this.groupTexts, 'groupId': groupId }).then(function(res) {
+          crud.toQuery()
+        })
       }
       return true
     },

@@ -3,6 +3,7 @@ CREATE TABLE `server` (
   `server_id` bigint NOT NULL AUTO_INCREMENT COMMENT 'Server ID',
   `host` varchar(255) DEFAULT NULL COMMENT 'host or ip',
   `status` int DEFAULT '0' COMMENT 'status 0 ok 1 disable',
+  `meta` varchar(255) DEFAULT NULL COMMENT 'meta json',
   PRIMARY KEY (`server_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='server';
 

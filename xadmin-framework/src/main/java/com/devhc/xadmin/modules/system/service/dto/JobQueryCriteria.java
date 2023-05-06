@@ -17,7 +17,7 @@ package com.devhc.xadmin.modules.system.service.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.devhc.xadmin.annotation.Query;
+import com.devhc.xadmin.annotation.XQuery;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -29,12 +29,12 @@ import java.util.List;
 @NoArgsConstructor
 public class JobQueryCriteria {
 
-    @Query(type = Query.Type.INNER_LIKE)
+    @XQuery(type = XQuery.Type.INNER_LIKE)
     private String name;
 
-    @Query
+    @XQuery
     private Boolean enabled;
 
-    @Query(type = Query.Type.BETWEEN)
+    @XQuery(type = XQuery.Type.BETWEEN)
     private List<Timestamp> createTime;
 }

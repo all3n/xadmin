@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Query {
+public @interface XQuery {
 
     String propName() default "";
     Type type() default Type.EQUAL;

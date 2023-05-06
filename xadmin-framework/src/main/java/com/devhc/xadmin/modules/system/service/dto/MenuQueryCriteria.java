@@ -16,7 +16,7 @@
 package com.devhc.xadmin.modules.system.service.dto;
 
 import lombok.Data;
-import com.devhc.xadmin.annotation.Query;
+import com.devhc.xadmin.annotation.XQuery;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -27,15 +27,15 @@ import java.util.List;
 @Data
 public class MenuQueryCriteria {
 
-    @Query(blurry = "title,component,permission")
+    @XQuery(blurry = "title,component,permission")
     private String blurry;
 
-    @Query(type = Query.Type.BETWEEN)
+    @XQuery(type = XQuery.Type.BETWEEN)
     private List<Timestamp> createTime;
 
-    @Query(type = Query.Type.IS_NULL, propName = "pid")
+    @XQuery(type = XQuery.Type.IS_NULL, propName = "pid")
     private Boolean pidIsNull;
 
-    @Query
+    @XQuery
     private Long pid;
 }

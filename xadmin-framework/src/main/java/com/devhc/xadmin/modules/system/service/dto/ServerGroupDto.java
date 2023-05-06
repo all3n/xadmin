@@ -33,4 +33,6 @@ public class ServerGroupDto implements Serializable {
 
     /** status 0 ok 1 disable */
     private Integer status;
+    /** server count */
+    private Long count;
 }

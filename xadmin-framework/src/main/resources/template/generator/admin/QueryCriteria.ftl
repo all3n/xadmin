@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.List;
 </#if>
 <#if queryColumns??>
-import com.devhc.xadmin.annotation.Query;
+import com.devhc.xadmin.annotation.XQuery;
 </#if>
 
 /**
@@ -39,32 +39,32 @@ public class ${className}QueryCriteria{
 
 <#if column.queryType = '='>
     /** 精确 */
-    @Query
+    @XQuery
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = 'Like'>
     /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
+    @XQuery(type = XQuery.Type.INNER_LIKE)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = '!='>
     /** 不等于 */
-    @Query(type = Query.Type.NOT_EQUAL)
+    @XQuery(type = XQuery.Type.NOT_EQUAL)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = 'NotNull'>
     /** 不为空 */
-    @Query(type = Query.Type.NOT_NULL)
+    @XQuery(type = XQuery.Type.NOT_NULL)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = '>='>
     /** 大于等于 */
-    @Query(type = Query.Type.GREATER_THAN)
+    @XQuery(type = XQuery.Type.GREATER_THAN)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
 <#if column.queryType = '<='>
     /** 小于等于 */
-    @Query(type = Query.Type.LESS_THAN)
+    @XQuery(type = XQuery.Type.LESS_THAN)
     private ${column.columnType} ${column.changeColumnName};
 </#if>
     </#list>
@@ -72,7 +72,7 @@ public class ${className}QueryCriteria{
 <#if betweens??>
     <#list betweens as column>
     /** BETWEEN */
-    @Query(type = Query.Type.BETWEEN)
+    @Query(type = XQuery.Type.BETWEEN)
     private List<${column.columnType}> ${column.changeColumnName};
     </#list>
 </#if>

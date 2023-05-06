@@ -33,6 +33,7 @@ import com.devhc.xadmin.utils.QueryHelp;
 import com.devhc.xadmin.utils.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
@@ -51,6 +52,7 @@ import java.util.LinkedHashMap;
 * @date 2022-12-22
 **/
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ServerGroupServiceImpl implements ServerGroupService {
     private final ServerRepository serverRepository;
@@ -60,7 +62,13 @@ public class ServerGroupServiceImpl implements ServerGroupService {
     @Override
     public Map<String,Object> queryAll(ServerGroupQueryCriteria criteria, Pageable pageable){
         Page<ServerGroup> page = serverGroupRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(serverGroupMapper::toDto));
+        List<Long> gIds = page.map(ServerGroup::getGroupId).stream().collect(Collectors.toList());
+        Map<Long, Long> cnts = serverGroupRepository.countByIdsAsMap(gIds);
+        log.info("{}", cnts);
+        return PageUtil.toPage(page.map(serverGroupMapper::toDto).map(dto->{
+            dto.setCount(cnts.getOrDefault(dto.getGroupId(), 0L));
+            return dto;
+        }));
     }
 
     @Override
@@ -103,8 +111,9 @@ public class ServerGroupServiceImpl implements ServerGroupService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (ServerGroupDto serverGroup : all) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("group name", serverGroup.getName());
-            map.put("status 0 ok 1 disable", serverGroup.getStatus());
+            map.put("ID", serverGroup.getGroupId());
+            map.put("name", serverGroup.getName());
+            map.put("status", serverGroup.getStatus());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

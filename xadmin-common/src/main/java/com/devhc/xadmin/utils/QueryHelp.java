@@ -19,7 +19,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.devhc.xadmin.annotation.DataPermission;
-import com.devhc.xadmin.annotation.Query;
+import com.devhc.xadmin.annotation.XQuery;
 import lombok.extern.slf4j.Slf4j;
 import javax.persistence.criteria.*;
 import java.lang.reflect.Field;
@@ -57,7 +57,7 @@ public class QueryHelp {
                 boolean accessible = field.isAccessible();
                 // 设置对象的访问权限，保证对private的属性的访
                 field.setAccessible(true);
-                Query q = field.getAnnotation(Query.class);
+                XQuery q = field.getAnnotation(XQuery.class);
                 if (q != null) {
                     String propName = q.propName();
                     String joinName = q.joinName();

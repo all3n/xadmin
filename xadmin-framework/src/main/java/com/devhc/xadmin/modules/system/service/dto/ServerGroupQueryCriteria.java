@@ -13,7 +13,7 @@
 */
 package com.devhc.xadmin.modules.system.service.dto;
 
-import com.devhc.xadmin.annotation.Query;
+import com.devhc.xadmin.annotation.XQuery;
 import lombok.Data;
 
 /**
@@ -25,14 +25,14 @@ import lombok.Data;
 public class ServerGroupQueryCriteria{
 
     /** 精确 */
-    @Query
+    @XQuery
     private Long groupId;
 
     /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
+    @XQuery(type = XQuery.Type.INNER_LIKE)
     private String name;
 
     /** 精确 */
-    @Query
+    @XQuery
     private Integer status;
 }
