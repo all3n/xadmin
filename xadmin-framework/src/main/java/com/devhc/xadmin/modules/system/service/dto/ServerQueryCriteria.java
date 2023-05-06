@@ -39,9 +39,4 @@ public class ServerQueryCriteria {
      */
     @Query
     private Integer status;
-    @Query
-    private Integer shard;
-
-    @Query
-    private Integer tag;
 }

@@ -37,7 +37,5 @@ public class ServerDto implements Serializable {
      * status 0 ok 1 disable
      */
     private Integer status;
-    private Integer shard;
-    private Integer tag;
-    private String tagName;
+
 }

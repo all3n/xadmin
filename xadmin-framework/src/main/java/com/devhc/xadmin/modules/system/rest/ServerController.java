@@ -50,7 +50,6 @@ public class ServerController {
 
     private final ServerService serverService;
     private final ServerRepository serverRepository;
-//    private final ServerTagRepository tagRepository;
 
     @Log("导出数据")
     @Operation(summary="导出数据")
@@ -88,32 +87,15 @@ public class ServerController {
     @Operation(summary="批量新增Server")
     @PreAuthorize("@xps.check('server:add')")
     public ResponseEntity<Object> batchAddServer(@RequestBody Map<String, String> args) {
-        /*
-        Map<String, Integer> tagMap = tagRepository.findAll().stream()
-            .collect(Collectors.toMap(ServerTag::getTagName, ServerTag::getTagId));
         Arrays.stream(args.get("servers").split("\n")).forEach(server -> {
             List<String> info = Arrays.stream(StringUtils.split(server)).map(String::trim)
                 .collect(Collectors.toList());
             Server s = new Server();
             s.setHost(info.get(0));
-            if (info.size() > 1) {
-                String tagStr = info.get(1);
-                if (StringUtils.isNumeric(tagStr)) {
-                    s.setTag(Integer.parseInt(tagStr));
-                } else {
-                    if (tagMap.containsKey(tagStr)) {
-                        s.setTag(tagMap.get(tagStr));
-                    }
-                }
-            }
-            if (info.size() > 2) {
-                s.setShard(Integer.parseInt(info.get(2)));
-            }
             s.setStatus(0);
             log.info("{}", s);
             serverService.create(s);
         });
-         */
         return new ResponseEntity<>(0, HttpStatus.CREATED);
     }
 
