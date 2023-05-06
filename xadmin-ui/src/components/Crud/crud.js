@@ -376,6 +376,33 @@ function CRUD(options) {
     selectionChangeHandler(val) {
       crud.selections = val
     },
+    sortChangeHandler: function(x) {
+      var sort = null
+      if (typeof crud.sort === 'string') {
+        crud.sort = [crud.sort]
+      }
+      if (x['order']) {
+        sort = x['order'] === 'ascending' ? 'asc' : 'desc'
+      }
+      var found = false
+      for (var i in crud.sort) {
+        var v = crud.sort[i]
+        var field = v.split(',')[0]
+        if (field === x['prop']) {
+          found = true
+          if (sort) {
+            crud.sort[i] = x['prop'] + ',' + sort
+          } else {
+            crud.sort.slice(i, 1)
+          }
+          break
+        }
+      }
+      if (!found) {
+        crud.sort.push(x['prop'] + ',' + sort)
+      }
+      crud.toQuery()
+    },
     /**
      * 重置查询参数
      * @param {Boolean} toQuery 重置后进行查询操作

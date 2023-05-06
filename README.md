@@ -1,4 +1,8 @@
 # xadmin
+```
+springboot 2.6.11 + SpringSecurity + JPA
+DOC: swagger3 + openAPI3
+```
 
 ## BUILD
 1. mvn clean package
