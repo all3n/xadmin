@@ -24,6 +24,9 @@ import router from './router/routers'
 import './assets/icons' // icon
 import './router/index' // permission control
 
+// fix Added non-passive event listener to a scroll-blocking ‘wheel’ event. Consider marking event handler as ‘passive’ to make the page more responsive.
+import 'default-passive-events'
+
 Vue.use(checkPer)
 Vue.use(permission)
 Vue.use(dict)

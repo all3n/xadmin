@@ -1,5 +1,10 @@
 <template>
-  <div v-loading="!show" element-loading-text="数据加载中..." :style="!show ? 'height: 500px' : 'height: 100%'" class="app-container">
+  <div
+    v-loading="!show"
+    element-loading-text="数据加载中..."
+    :style="!show ? 'height: 500px' : 'height: 100%'"
+    class="app-container"
+  >
     <div v-if="show">
       <el-card class="box-card">
         <div style="color: #666;font-size: 13px;">
@@ -114,7 +119,7 @@
                 <span style="font-weight: bold;color: #666;font-size: 15px">CPU使用率监控</span>
               </div>
               <div>
-                <v-chart :options="cpuInfo" />
+                <v-chart class="chart" :option="cpuInfo" />
               </div>
             </el-card>
           </el-col>
@@ -124,7 +129,7 @@
                 <span style="font-weight: bold;color: #666;font-size: 15px">内存使用率监控</span>
               </div>
               <div>
-                <v-chart :options="memoryInfo" />
+                <v-chart class="chart" :option="memoryInfo" />
               </div>
             </el-card>
           </el-col>
@@ -135,14 +140,30 @@
 </template>
 
 <script>
-import ECharts from 'vue-echarts'
-import 'echarts/lib/chart/line'
-import 'echarts/lib/component/polar'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart } from 'echarts/charts'
+import {
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent
+} from 'echarts/components'
+import VChart from 'vue-echarts'
 import { initData } from '@/api/data'
+
+use([
+  CanvasRenderer,
+  LineChart,
+  GridComponent,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent
+])
 export default {
   name: 'ServerMonitor',
   components: {
-    'v-chart': ECharts
+    VChart
   },
   data() {
     return {
@@ -169,16 +190,12 @@ export default {
           data: [],
           type: 'line',
           areaStyle: {
-            normal: {
-              color: 'rgb(32, 160, 255)' // 改变区域颜色
-            }
+            color: 'rgb(32, 160, 255)' // 改变区域颜色
           },
           itemStyle: {
-            normal: {
-              color: '#6fbae1',
-              lineStyle: {
-                color: '#6fbae1' // 改变折线颜色
-              }
+            color: '#6fbae1',
+            lineStyle: {
+              color: '#6fbae1' // 改变折线颜色
             }
           }
         }]
@@ -202,16 +219,12 @@ export default {
           data: [],
           type: 'line',
           areaStyle: {
-            normal: {
-              color: 'rgb(32, 160, 255)' // 改变区域颜色
-            }
+            color: 'rgb(32, 160, 255)' // 改变区域颜色
           },
           itemStyle: {
-            normal: {
-              color: '#6fbae1',
-              lineStyle: {
-                color: '#6fbae1' // 改变折线颜色
-              }
+            color: '#6fbae1',
+            lineStyle: {
+              color: '#6fbae1' // 改变折线颜色
             }
           }
         }]
@@ -251,41 +264,51 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
- ::v-deep .box-card {
-    margin-bottom: 5px;
-    span {
-      margin-right: 28px;
-    }
-    .el-icon-refresh {
-      margin-right: 10px;
-      float: right;
-      cursor:pointer;
-    }
+::v-deep .box-card {
+  margin-bottom: 5px;
+
+  span {
+    margin-right: 28px;
   }
-  .cpu, .memory, .swap, .disk  {
-    width: 20%;
-    float: left;
-    padding-bottom: 20px;
-    margin-right: 5%;
+
+  .el-icon-refresh {
+    margin-right: 10px;
+    float: right;
+    cursor: pointer;
   }
- .title {
-   text-align: center;
-   font-size: 15px;
-   font-weight: 500;
-   color: #999;
-   margin-bottom: 16px;
- }
- .footer {
-    text-align: center;
-    font-size: 15px;
-    font-weight: 500;
-    color: #999;
-    margin-top: -5px;
-    margin-bottom: 10px;
-  }
-  .content {
-    text-align: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
+}
+
+.cpu, .memory, .swap, .disk {
+  width: 20%;
+  float: left;
+  padding-bottom: 20px;
+  margin-right: 5%;
+}
+
+.title {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: #999;
+  margin-bottom: 16px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: #999;
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
+.content {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.chart {
+  height: 400px;
+}
 </style>
