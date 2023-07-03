@@ -1,12 +1,4 @@
 #! /bin/sh
-#
-# 5-utils.sh
-# Copyright (C) 2023 wanghuacheng <wanghuacheng@wanghuacheng-PC>
-#
-# Distributed under terms of the MIT license.
-#
-
-
 start_gen_rsa(){
     java -cp $APP_HOME/xadmin-framework/target/xadmin-framework-1.0.0-SNAPSHOT.jar com.devhc.xadmin.utils.RsaUtils
     echo "update public key in :xadmin-ui/src/utils/rsaEncrypt.js"

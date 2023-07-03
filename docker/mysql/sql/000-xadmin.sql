@@ -641,8 +641,8 @@ CREATE TABLE `sys_user` (
 LOCK TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` VALUES (1,2,'admin','超级管理员','男','17712341234','admin@xadmin.com',NULL,NULL,'$2a$10$Egp1/gvFlt7zhlXVfEFw4OfWQCGPw0ClmMcc6FjTnvXNRVf9zdMRa',_binary '',1,NULL,'admin','2022-05-03 16:38:31','2022-08-23 09:11:56','2022-12-21 11:45:44');
-INSERT INTO `sys_user` VALUES (2,2,'test','测试','男','19999999999','231@qq.com',NULL,NULL,'$2a$10$4XcyudOYTSz6fue6KFNMHeUQnCX5jbBQypLEnGk1PmekXt5c95JcK',_binary '\0',1,'admin','admin',NULL,'2022-05-05 11:15:49','2022-12-15 18:23:24');
-INSERT INTO `sys_user` VALUES (3,7,'algo','算法','男','13312341234','algo@360.cn',NULL,NULL,'$2a$10$H12jzjXkeP8zlDDnd839MuKxIugtpvV3K4HjJYLu/X8mXmlchlK9m',_binary '\0',1,'admin','algo','2022-12-22 11:09:48','2022-12-22 11:06:33','2022-12-22 11:20:24');
+INSERT INTO `sys_user` VALUES (2,2,'test','测试','男','19999999999','test@xadmin.com',NULL,NULL,'$2a$10$4XcyudOYTSz6fue6KFNMHeUQnCX5jbBQypLEnGk1PmekXt5c95JcK',_binary '\0',1,'admin','admin',NULL,'2022-05-05 11:15:49','2022-12-15 18:23:24');
+INSERT INTO `sys_user` VALUES (3,7,'algo','算法','男','13312341234','algo@xadmin.cn',NULL,NULL,'$2a$10$H12jzjXkeP8zlDDnd839MuKxIugtpvV3K4HjJYLu/X8mXmlchlK9m',_binary '\0',1,'admin','algo','2022-12-22 11:09:48','2022-12-22 11:06:33','2022-12-22 11:20:24');
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
 

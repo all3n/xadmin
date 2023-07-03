@@ -16,6 +16,7 @@
 package com.devhc.xadmin.modules.system.rest;
 
 import com.devhc.xadmin.modules.system.service.MonitorService;
+import com.devhc.xadmin.modules.system.service.dto.JvmDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -25,21 +26,30 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 
- * 
+ *
  */
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "系统-服务监控管理")
 @RequestMapping("/api/monitor")
 public class MonitorController {
-
     private final MonitorService serverService;
-
     @GetMapping
-    @Operation(summary="查询服务监控")
+    @Operation(summary = "查询服务监控")
     @PreAuthorize("@xps.check('monitor:list')")
-    public ResponseEntity<Object> queryMonitor(){
-        return new ResponseEntity<>(serverService.getServers(),HttpStatus.OK);
+    public ResponseEntity<Object> queryMonitor() {
+        return new ResponseEntity<>(serverService.getServers(), HttpStatus.OK);
+    }
+
+    @GetMapping("jvm")
+    @Operation(summary = "JVM Monitor")
+    @PreAuthorize("@xps.check('monitor:jvm')")
+    public ResponseEntity<Object> jvmMonitor() {
+        JvmDto jvmDto = new JvmDto();
+        jvmDto.setGc(serverService.getGc());
+        jvmDto.setMem(serverService.getMemory());
+        jvmDto.setPool(serverService.getMemoryPool());
+        jvmDto.setClassLoader(serverService.getClassLoader());
+        return new ResponseEntity<>(jvmDto, HttpStatus.OK);
     }
 }

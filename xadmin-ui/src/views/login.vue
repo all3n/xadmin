@@ -1,6 +1,6 @@
 <template>
   <div class="login" style="background-color: #2c3e50">
-<!--    :style="'background-image:url(' + Background + ');'">-->
+    <!--    :style="'background-image:url(' + Background + ');'">-->
     <el-form
       ref="loginForm"
       :model="loginForm"

@@ -15,17 +15,30 @@
  */
 package com.devhc.xadmin.modules.system.service;
 
+import com.devhc.xadmin.modules.system.service.dto.JvmClassLoaderDto;
+import com.devhc.xadmin.modules.system.service.dto.JvmGcDto;
+import com.devhc.xadmin.modules.system.service.dto.JvmMemPoolDto;
+import com.devhc.xadmin.modules.system.service.dto.JvmMemoryDto;
+
+import java.util.List;
 import java.util.Map;
 
 /**
- * 
  *
  */
 public interface MonitorService {
 
     /**
-    * 查询数据分页
-    * @return Map<String,Object>
-    */
-    Map<String,Object> getServers();
+     * 查询数据分页
+     *
+     * @return Map<String, Object>
+     */
+    Map<String, Object> getServers();
+
+    JvmMemoryDto getMemory();
+
+    List<JvmMemPoolDto> getMemoryPool();
+    List<JvmGcDto> getGc();
+
+    JvmClassLoaderDto getClassLoader();
 }

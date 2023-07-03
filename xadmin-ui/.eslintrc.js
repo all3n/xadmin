@@ -17,13 +17,12 @@ module.exports = {
     "vue/max-attributes-per-line": [2, {
       "singleline": 10,
       "multiline": {
-        "max": 1,
-        "allowFirstLine": false
+        "max": 1
       }
     }],
     "vue/singleline-html-element-content-newline": "off",
     "vue/multiline-html-element-content-newline":"off",
-    "vue/name-property-casing": ["error", "PascalCase"],
+    "vue/component-definition-name-casing": ["error", "PascalCase"],
     "vue/no-v-html": "off",
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
@@ -142,7 +141,7 @@ module.exports = {
     }],
     'no-unreachable': 2,
     'no-unsafe-finally': 2,
-    'no-unused-vars': [2, {
+    'no-unused-vars': [1, {
       'vars': 'all',
       'args': 'none'
     }],
@@ -193,6 +192,15 @@ module.exports = {
     'object-curly-spacing': [2, 'always', {
       objectsInObjects: false
     }],
-    'array-bracket-spacing': [2, 'never']
+    'array-bracket-spacing': [2, 'never'],
+    'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
+    'vue/multi-word-component-names': 'off',
+    'vue/valid-v-for': 'off',
+    'vue/valid-v-bind-sync': 'off',
+    'vue/no-reserved-component-names': 'off',
+    'vue/this-in-template' : 'off',
+    'vue/no-unused-vars': 'off',
+    'vue/v-slot-style' : 'off',
+    'vue/html-self-closing' : 0
   }
 }

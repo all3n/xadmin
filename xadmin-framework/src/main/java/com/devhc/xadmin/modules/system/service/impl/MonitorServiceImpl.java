@@ -18,6 +18,10 @@ package com.devhc.xadmin.modules.system.service.impl;
 import cn.hutool.core.date.BetweenFormatter.Level;
 import cn.hutool.core.date.DateUtil;
 import com.devhc.xadmin.modules.system.service.MonitorService;
+import com.devhc.xadmin.modules.system.service.dto.JvmClassLoaderDto;
+import com.devhc.xadmin.modules.system.service.dto.JvmGcDto;
+import com.devhc.xadmin.modules.system.service.dto.JvmMemPoolDto;
+import com.devhc.xadmin.modules.system.service.dto.JvmMemoryDto;
 import com.devhc.xadmin.utils.XAdminConstant;
 import com.devhc.xadmin.utils.FileUtil;
 import com.devhc.xadmin.utils.StringUtils;
@@ -30,7 +34,7 @@ import oshi.software.os.OperatingSystem;
 import oshi.util.FormatUtil;
 import oshi.util.Util;
 
-import java.lang.management.ManagementFactory;
+import java.lang.management.*;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -64,6 +68,69 @@ public class MonitorServiceImpl implements MonitorService {
             e.printStackTrace();
         }
         return resultMap;
+    }
+
+    @Override
+    public JvmMemoryDto getMemory() {
+        JvmMemoryDto ret = new JvmMemoryDto();
+        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+        MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
+        MemoryUsage nonHeapMemoryUsage = memoryMXBean.getNonHeapMemoryUsage();
+
+        ret.setCommitted(heapMemoryUsage.getCommitted());
+        ret.setInit(heapMemoryUsage.getInit());
+        ret.setMax(heapMemoryUsage.getMax());
+        ret.setUsed(heapMemoryUsage.getUsed());
+
+        ret.setNonCommitted(nonHeapMemoryUsage.getCommitted());
+        ret.setNonInit(nonHeapMemoryUsage.getInit());
+        ret.setNonMax(nonHeapMemoryUsage.getMax());
+        ret.setNonUsed(nonHeapMemoryUsage.getUsed());
+        return ret;
+    }
+
+    @Override
+    public List<JvmMemPoolDto> getMemoryPool() {
+        List<JvmMemPoolDto> list = new ArrayList<>();
+        List<MemoryPoolMXBean> memoryPoolMXBeans = ManagementFactory.getMemoryPoolMXBeans();
+        memoryPoolMXBeans.forEach(bean -> {
+            JvmMemPoolDto poolBean = new JvmMemPoolDto();
+            poolBean.setName(bean.getName());
+            poolBean.setManageNames(Arrays.toString(bean.getMemoryManagerNames()));
+            poolBean.setUsed(bean.getUsage().getUsed());
+            poolBean.setMax(bean.getUsage().getMax());
+            poolBean.setCommitted(bean.getUsage().getCommitted());
+            list.add(poolBean);
+        });
+        return list;
+    }
+
+    @Override
+    public List<JvmGcDto> getGc() {
+        List<JvmGcDto> list = new ArrayList<>();
+        List<GarbageCollectorMXBean> gcBeans = ManagementFactory.getGarbageCollectorMXBeans();
+        gcBeans.forEach(bean -> {
+            JvmGcDto dto = new JvmGcDto();
+            dto.setCount(bean.getCollectionCount());
+            dto.setTime(bean.getCollectionTime());
+            dto.setName(bean.getName());
+            dto.setObjName(bean.getObjectName().getCanonicalName());
+            dto.setPoolName(StringUtils.join(bean.getMemoryPoolNames(), ","));
+            dto.setIsValid(bean.isValid());
+            list.add(dto);
+        });
+        return list;
+    }
+
+    @Override
+    public JvmClassLoaderDto getClassLoader() {
+        ClassLoadingMXBean clBean = ManagementFactory.getClassLoadingMXBean();
+        JvmClassLoaderDto ret = new JvmClassLoaderDto();
+        ret.setIsVerbose(clBean.isVerbose());
+        ret.setCount(clBean.getLoadedClassCount());
+        ret.setLoaded(clBean.getTotalLoadedClassCount());
+        ret.setUnLoaded(clBean.getUnloadedClassCount());
+        return ret;
     }
 
     /**

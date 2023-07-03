@@ -8,7 +8,7 @@
     <div v-if="show">
       <el-card class="box-card">
         <div style="color: #666;font-size: 13px;">
-          <svg-icon icon-class="system" style="margin-right: 5px" />
+          <svg-icon icon-class="system" style="margin-right: 5px"/>
           <span>
             系统：{{ data.sys.os }}
           </span>
@@ -18,7 +18,39 @@
           <span>
             项目已不间断运行：{{ data.sys.day }}
           </span>
-          <i class="el-icon-refresh" style="margin-left: 40px" @click="init" />
+          <i class="el-icon-refresh" style="margin-left: 40px" @click="init"/>
+        </div>
+      </el-card>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span style="font-weight: bold;color: #666;font-size: 15px">JVM</span>
+        </div>
+        <div>
+          <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" style="margin-bottom: 10px">
+            <div class="title">HEAP</div>
+            <el-tooltip placement="top-end">
+              <div slot="content" style="font-size: 12px;">
+                <div style="padding: 3px;">
+                  <div style="padding: 3px">
+                    committed：{{ formatBytes(jvm.mem.committed) }}
+                  </div>
+                  <div style="padding: 3px">
+                    used：{{ formatBytes(jvm.mem.used) }}
+                  </div>
+                  <div style="padding: 3px">
+                    max：{{ formatBytes(jvm.mem.max) }}
+                  </div>
+                  <div style="padding: 3px">
+                    init：{{ formatBytes(jvm.mem.init) }}
+                  </div>
+                </div>
+              </div>
+              <div class="content">
+                <el-progress type="dashboard" :percentage="mem_per"/>
+              </div>
+            </el-tooltip>
+            <div class="footer">{{ formatBytes(jvm.mem.used) }}/{{ formatBytes(jvm.mem.max) }}</div>
+          </el-col>
         </div>
       </el-card>
       <el-card class="box-card">
@@ -44,7 +76,7 @@
                 </div>
               </div>
               <div class="content">
-                <el-progress type="dashboard" :percentage="parseFloat(data.cpu.used)" />
+                <el-progress type="dashboard" :percentage="parseFloat(data.cpu.used)"/>
               </div>
             </el-tooltip>
             <div class="footer">{{ data.cpu.coreNumber }} 核心</div>
@@ -64,7 +96,7 @@
                 </div>
               </div>
               <div class="content">
-                <el-progress type="dashboard" :percentage="parseFloat(data.memory.usageRate)" />
+                <el-progress type="dashboard" :percentage="parseFloat(data.memory.usageRate)"/>
               </div>
             </el-tooltip>
             <div class="footer">{{ data.memory.used }} / {{ data.memory.total }}</div>
@@ -84,7 +116,7 @@
                 </div>
               </div>
               <div class="content">
-                <el-progress type="dashboard" :percentage="parseFloat(data.swap.usageRate)" />
+                <el-progress type="dashboard" :percentage="parseFloat(data.swap.usageRate)"/>
               </div>
             </el-tooltip>
             <div class="footer">{{ data.swap.used }} / {{ data.swap.total }}</div>
@@ -102,7 +134,7 @@
                   </div>
                 </div>
                 <div class="content">
-                  <el-progress type="dashboard" :percentage="parseFloat(data.disk.usageRate)" />
+                  <el-progress type="dashboard" :percentage="parseFloat(data.disk.usageRate)"/>
                 </div>
               </el-tooltip>
             </div>
@@ -119,7 +151,7 @@
                 <span style="font-weight: bold;color: #666;font-size: 15px">CPU使用率监控</span>
               </div>
               <div>
-                <v-chart class="chart" :option="cpuInfo" />
+                <v-chart class="chart" :option="cpuInfo"/>
               </div>
             </el-card>
           </el-col>
@@ -129,7 +161,7 @@
                 <span style="font-weight: bold;color: #666;font-size: 15px">内存使用率监控</span>
               </div>
               <div>
-                <v-chart class="chart" :option="memoryInfo" />
+                <v-chart class="chart" :option="memoryInfo"/>
               </div>
             </el-card>
           </el-col>
@@ -140,9 +172,9 @@
 </template>
 
 <script>
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart } from 'echarts/charts'
+import {use} from 'echarts/core'
+import {CanvasRenderer} from 'echarts/renderers'
+import {LineChart} from 'echarts/charts'
 import {
   TitleComponent,
   TooltipComponent,
@@ -150,7 +182,7 @@ import {
   GridComponent
 } from 'echarts/components'
 import VChart from 'vue-echarts'
-import { initData } from '@/api/data'
+import {initData} from '@/api/data'
 
 use([
   CanvasRenderer,
@@ -171,6 +203,7 @@ export default {
       monitor: null,
       url: 'api/monitor',
       data: {},
+      jvm: {},
       cpuInfo: {
         tooltip: {
           trigger: 'axis'
@@ -231,6 +264,16 @@ export default {
       }
     }
   },
+  computed: {
+    mem_per() {
+      var x = (this.jvm.mem.used / this.jvm.mem.max) * 100
+      return Math.floor(x * 100) / 100
+    },
+    non_mem_per() {
+      var x = (this.jvm.mem.nonUsed / this.jvm.mem.nonCommitted) * 100
+      return Math.floor(x * 100) / 100
+    }
+  },
   created() {
     this.init()
     this.monitor = window.setInterval(() => {
@@ -243,7 +286,21 @@ export default {
     clearInterval(this.monitor)
   },
   methods: {
+    formatBytes(bytes, decimals = 2) {
+      if (bytes < 0) {
+        return bytes
+      }
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const dm = decimals < 0 ? 0 : decimals;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    },
     init() {
+      initData("api/monitor/jvm", {}).then(data => {
+        this.jvm = data
+      })
       initData(this.url, {}).then(data => {
         this.data = data
         this.show = true

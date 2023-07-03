@@ -1,13 +1,4 @@
 #! /bin/sh
-#
-# 4-dump.sh
-# Copyright (C) 2023 wanghuacheng <wanghuacheng@wanghuacheng-PC>
-#
-# Distributed under terms of the MIT license.
-#
-
-
-
 start_dump_mysql_to_sqlite(){
 	mysql_host=127.0.0.1
 	mysql_user=root
